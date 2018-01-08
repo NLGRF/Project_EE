@@ -23,6 +23,18 @@ class App extends Component {
         Car: snap.val()
        });
      });
+    /*
+    //อันนี้ได้  
+    //เเต่ get car ล่าสดน่าจะใช้ func ช่วยสักอย่างของ firebase 
+     const rootRef = firebase.database().ref().child('logCar');
+     //const speedRef = rootRef.child('Car');
+     rootRef.on('value', snap => {
+       snap.forEach(shot => {
+            console.log(shot.val());
+            console.log(shot.val().Car)
+       });
+     });
+    */
   }
 
   render() {
