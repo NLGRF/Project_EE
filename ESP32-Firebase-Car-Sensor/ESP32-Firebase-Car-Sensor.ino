@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-// Config Firebase
+// Config Firebase Database
 #define FIREBASE_HOST "esp32-ccar.firebaseio.com"
 #define FIREBASE_AUTH "q5iEL3edyyzhS4QVT7VGfJ8PHpzpfWTaUNlsVNrC"
 
@@ -14,6 +14,7 @@
 // Config time
 int timezone = 7;
 
+// Time Server
 char ntp_server1[20] = "ntp.ku.ac.th";
 char ntp_server2[20] = "fw.eng.ku.ac.th";
 char ntp_server3[20] = "time.uni.net.th";
@@ -27,7 +28,7 @@ const uint8_t phr_sensor = 18;
 // unsigned int Times = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // Sensor
   pinMode(phr_sensor, INPUT_PULLUP);
