@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
 import { log } from 'util';
+// import CardTest from './Card';
+import pt from './static/img/car.jpg'
 
 class App extends Component {
 /*
@@ -65,12 +67,15 @@ constructor() {
   render() {
     return (
       <div className="App">
-        <h1>Amount Car : {this.state.Car} Cars</h1>
+        <h1>Amount of Car : {this.state.Car} Cars</h1>
         <br/>
         <h1>Type Car (Times) : {this.state.Times} ms</h1>
         <br/>
         <h1>Time Stamp : {this.state.time}</h1>
+        <br/>
+        <img src={pt} width="300" height="225" />
       </div>
+  
     );
   }
 }
