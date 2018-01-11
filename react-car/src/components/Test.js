@@ -1,7 +1,6 @@
 import React from 'react';
 import ia from '../static/img/ice-age.jpg'
 import * as firebase from 'firebase';
-import { log } from 'util';
 
 class Test extends React.Component {
 
@@ -38,8 +37,7 @@ constructor() {
      */
     
     //อันนี้ได้  
-    //เเต่ get car ล่าสดน่าจะใช้ func ช่วยสักอย่างของ firebase 
-     var newItems = false;
+    //เเต่ get car ล่าสดน่าจะใช้ func ช่วยสักอย่างของ firebase
      var rootRef = firebase.database().ref().child('logCar');
      //const speedRef = rootRef.child('Car');
      
@@ -70,11 +68,11 @@ constructor() {
 
            <div className="content">
            <center>
-              <img src={ia} width="600" height="450" alt="Placeholder image" />
+              <img src={ia} width="600" height="450" />
            </center>  
             
                 <div className="media-content">
-                <div className="container">
+                
             
                 <div className="content">
   
@@ -102,7 +100,7 @@ constructor() {
   
                 </div>
   
-        </div>
+        
                 </div>
             </div>
         </div>    

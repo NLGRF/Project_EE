@@ -4,6 +4,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import * as firebase from 'firebase';
 import 'bulma/css/bulma.css';
+import './index.css';
 
 /*
  // Initialize Firebase

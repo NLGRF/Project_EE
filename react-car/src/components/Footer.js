@@ -5,11 +5,11 @@ class Footer extends React.Component {
         return (
             <footer className="footer hero is-dark">
                 <div className="container">
-                    <div className="content has-text-centered">
+                   <center>
                         <p>
                     <strong>Car Dashboard</strong> by <a href="https://www.facebook.com/Alonesnon">Mustache AS</a>.
                         </p>
-                    </div>
+                   </center> 
                 </div>
             </footer>
         )           
