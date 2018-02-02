@@ -93,7 +93,7 @@ void loop() {
       root["Times"] = phase_duration;
       root["time"] = NowString();
 
-      // append a new value to /logDHT
+      // append a new value to /logCar
       String name = Firebase.push("logCar", root);
       // handle error
       if (Firebase.failed()) {
