@@ -31,7 +31,7 @@ void setup() {
   // connect to wifi.
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("connecting");
-  
+
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
     delay(500);
@@ -48,33 +48,67 @@ void setup() {
   }
   Serial.println();
   Serial.println("Now: " + NowString());
-  
+
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+
+  Car = Firebase.getInt("/config/Car");
+  if (Firebase.failed()) {
+    Serial.print("getCar /logs failed:");
+    Serial.println(Firebase.error());
+    return;
+  }
+  Times = Firebase.getInt("/config/Times");
+  if (Firebase.failed()) {
+    Serial.print("getTimes /logs failed:");
+    Serial.println(Firebase.error());
+    return;
+  }
+  Serial.print("last Car : ");
+  Serial.println(Car);
+  Serial.print("last Times : ");
+  Serial.println(Times);
 
 }
 
 void loop() {
-
+ 
 
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.createObject();
   root["Car"] = Car;
   root["Times"] = Times;
   root["time"] = NowString();
-  
+
   // append a new value to /logDHT
-  String name = Firebase.push("logCar", root);
+  String data = Firebase.push("logCar", root);
   // handle error
   if (Firebase.failed()) {
-      Serial.print("pushing /logs failed:");
-      Serial.println(Firebase.error());  
-      return;
+    Serial.print("pushing /logs failed:");
+    Serial.println(Firebase.error());
+    return;
   }
   Serial.print("pushed: /logCar/");
-  Serial.println(name);
+  Serial.println(data);
+
+
+  JsonObject& objectList = StaticJsonBuffer<200>().createObject();
+  objectList["Car"] = Car;
+  objectList["Times"] = Times;
+
+  Firebase.set("config", objectList);
+  // handle error
+  if (Firebase.failed()) {
+    Serial.print("setting /logs failed:");
+    Serial.println(Firebase.error());
+    return;
+  }
+  Serial.println("setted: /logCar/");
+//  Serial.print(Firebase.set("config", objectList));
+
   // Test
   Car++;
-  Times = random(300,2000);
+  Times = random(300, 2000);
+
   delay(30000);
 }
 
