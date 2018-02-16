@@ -167,7 +167,7 @@ constructor() {
                            
                            <div className="notification is-link">
                            <center>
-                             Last Time Stamp : <strong>{this.state.time_in}</strong>
+                             Last Time Stamp : <strong>{this.state.time_out}</strong>
                            </center>
                            </div>
        
