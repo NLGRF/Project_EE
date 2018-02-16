@@ -17,9 +17,12 @@ class Card extends React.Component {
 constructor() {
   super();
   this.state = {
-    Car: 0,
-    Times: 0,
-    time: 0
+    Car_in: 0,
+    duration_time_in: 0,
+    time_in: 0,
+    Car_out: 0,
+    duration_time_out: 0,
+    time_out: 0
   }
 }
 
@@ -39,22 +42,22 @@ constructor() {
     
     //อันนี้ได้  
     //เเต่ get car ล่าสดน่าจะใช้ func ช่วยสักอย่างของ firebase 
-     var newItems = false;
-     var rootRef = firebase.database().ref().child('logCar');
+    // var newItems = false;
+     var rootRef = firebase.database().ref().child('logCar_in');
      //const speedRef = rootRef.child('Car');
      
      // rootRef.on('value', snap => {
      rootRef.limitToLast(1).on('value', snap => {
        snap.forEach(shot => {
             // console.log(shot.val());
-             console.log(shot.val().Car)
-             console.log(shot.val().Times)
-             console.log(shot.val().time)
+            console.log(shot.val().Car_in)
+            console.log(shot.val().duration_time_in)
+            console.log(shot.val().time_in)
 
-            this.setState ({
-              Car: shot.val().Car,
-              Times: shot.val().Times,
-              time: shot.val().time
+           this.setState ({
+             Car: shot.val().Car_in,
+             Times: shot.val().duration_time_in,
+             time: shot.val().time_in
              });
             
        }); 
@@ -81,15 +84,15 @@ constructor() {
                 
 
                     <div className="notification">
-                      Amount of Car : <strong>{this.state.Car}</strong> Cars.
+                      Amount of Car : <strong>{this.state.Car_in}</strong> Cars.
                     </div>
                 
                     <div className="notification">
-                      Type Car (Times) : <strong>{this.state.Times}</strong> ms.
+                      Type Car (Times) : <strong>{this.state.duration_time_in}</strong> ms.
                     </div>
                     
                     <div className="notification">
-                      Last Time Stamp : <strong>{this.state.time}</strong>
+                      Last Time Stamp : <strong>{this.state.time_in}</strong>
                     </div>
 
                 

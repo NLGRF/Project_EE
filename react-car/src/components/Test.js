@@ -16,9 +16,12 @@ class Test extends React.Component {
 constructor() {
   super();
   this.state = {
-    Car: 0,
-    Times: 0,
-    time: 0
+    Car_in: 0,
+    duration_time_in: 0,
+    time_in: 0,
+    Car_out: 0,
+    duration_time_out: 0,
+    time_out: 0
   }
 }
 
@@ -38,25 +41,43 @@ constructor() {
     
     //อันนี้ได้  
     //เเต่ get car ล่าสดน่าจะใช้ func ช่วยสักอย่างของ firebase
-     var rootRef = firebase.database().ref().child('logCar');
+     var rootRef_in = firebase.database().ref().child('logCar_in');
+     var rootRef_out = firebase.database().ref().child('logCar_out');
      //const speedRef = rootRef.child('Car');
      
      // rootRef.on('value', snap => {
-     rootRef.limitToLast(1).on('value', snap => {
+      rootRef_in.limitToLast(1).on('value', snap => {
        snap.forEach(shot => {
             // console.log(shot.val());
-             console.log(shot.val().Car)
-             console.log(shot.val().Times)
-             console.log(shot.val().time)
+             console.log(shot.val().Car_in)
+             console.log(shot.val().duration_time_in)
+             console.log(shot.val().time_in)
 
             this.setState ({
-              Car: shot.val().Car,
-              Times: shot.val().Times,
-              time: shot.val().time
+              Car_in: shot.val().Car_in,
+              duration_time_in: shot.val().duration_time_in,
+              time_in: shot.val().time_in
              });
             
        }); 
      });
+
+
+     rootRef_out.limitToLast(1).on('value', snap => {
+      snap.forEach(shot => {
+           // console.log(shot.val());
+            console.log(shot.val().Car_out)
+            console.log(shot.val().duration_time_out)
+            console.log(shot.val().time_out)
+
+           this.setState ({
+            Car_out: shot.val().Car_out,
+            duration_time_out: shot.val().duration_time_out,
+            time_out: shot.val().time_out
+            });
+           
+      }); 
+    });
     
   }
 
@@ -67,9 +88,18 @@ constructor() {
         <div className="container">
 
            <div className="content">
+           <article className="media">
+           <div className="columns">
+           
+           <div class="media-content">
+           
+           <div className="column">
+           
            <center>
               <img src={ia} width="600" height="450" />
            </center>  
+
+           <h1>IN</h1>
             
                 <div className="media-content">
                 
@@ -80,19 +110,19 @@ constructor() {
   
                       <div className="notification is-info">
                       <center>
-                        Amount of Car : <strong>{this.state.Car}</strong> Cars.
+                        Amount of Car : <strong>{this.state.Car_in}</strong> Cars.
                       </center>
                       </div>
 
                       <div className="notification is-primary">
                       <center>
-                        Type Car (Times) : <strong>{this.state.Times}</strong> ms.
+                      duration_time_Car : <strong>{this.state.duration_time_in}</strong> ms.
                       </center>
                       </div>
                       
                       <div className="notification is-link">
                       <center>
-                        Last Time Stamp : <strong>{this.state.time}</strong>
+                        Last Time Stamp : <strong>{this.state.time_in}</strong>
                       </center>
                       </div>
   
@@ -102,6 +132,60 @@ constructor() {
   
         
                 </div>
+                </div>
+                </div>
+                
+
+                <div class="media-content">
+
+                <div className="column">
+
+                <center>
+                   <img src={ia} width="600" height="450" />
+                </center>  
+     
+                <h1>OUT</h1>
+                 
+                     <div className="media-content">
+                     
+                 
+                     <div className="content">
+       
+                         <br/>
+       
+                           <div className="notification is-info">
+                           <center>
+                             Amount of Car : <strong>{this.state.Car_out}</strong> Cars.
+                           </center>
+                           </div>
+     
+                           <div className="notification is-primary">
+                           <center>
+                           duration_time_Car : <strong>{this.state.duration_time_out}</strong> ms.
+                           </center>
+                           </div>
+                           
+                           <div className="notification is-link">
+                           <center>
+                             Last Time Stamp : <strong>{this.state.time_in}</strong>
+                           </center>
+                           </div>
+       
+                       
+       
+                     </div>
+       
+             
+                     </div>
+                     </div>
+
+
+                     </div>
+
+
+
+                     </div>
+                </article>
             </div>
         </div>    
         )           

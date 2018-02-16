@@ -22,7 +22,8 @@ char ntp_server3[20] = "time.uni.net.th";
 int dst = 0;
 
 // Sensor
-const uint8_t phr_sensor = 18;
+const uint8_t phr_sensor_in = 12;
+const uint8_t phr_sensor_out = 13;
 
 // unsigned int Car = 0;
 // unsigned int Times = 0;
@@ -31,7 +32,8 @@ void setup() {
   Serial.begin(115200);
 
   // Sensor
-  pinMode(phr_sensor, INPUT_PULLUP);
+  pinMode(phr_sensor_in, INPUT_PULLUP);
+  pinMode(phr_sensor_out, INPUT_PULLUP);
 
   // WiFi
   WiFi.mode(WIFI_STA);
@@ -63,51 +65,96 @@ void setup() {
 }
 
 void loop() {
-  static bool last_phr_state = HIGH;
-  static unsigned int car_count;
-  static unsigned long last_press_time;
-  int phr_state = digitalRead(phr_sensor);
-  unsigned long now = millis();
+  static bool last_phr_state_in = HIGH;
+  static unsigned int car_count_in;
+  static unsigned long last_press_time_in;
+  int phr_state_in = digitalRead(phr_sensor_in);
+  unsigned long now_in = millis();
+
+  static bool last_phr_state_out = HIGH;
+  static unsigned int car_count_out;
+  static unsigned long last_press_time_out;
+  int phr_state_out = digitalRead(phr_sensor_out);
+  unsigned long now_out = millis();
 
   // Record when the phr is pressed.
-  if (last_phr_state == HIGH && phr_state == LOW) {
-    car_count++;
-    last_press_time = now;
+  if (last_phr_state_in == HIGH && phr_state_in == LOW) {
+    car_count_in++;
+    last_press_time_in = now_in;
   }
 
   // Report when the phr is released.
-  if (last_phr_state == LOW && phr_state == HIGH) {
-    unsigned long phase_duration = now - last_press_time;
-    if (phase_duration < 10) {  // discard bounce
-      car_count--;
+  if (last_phr_state_in == LOW && phr_state_in == HIGH) {
+    unsigned long phase_duration_in = now_in - last_press_time_in;
+    if (phase_duration_in < 10) {  // discard bounce
+      car_count_in--;
     }
     else {
       Serial.print(F("pushes: "));
-      Serial.print(car_count);
+      Serial.print(car_count_in);
       Serial.print(F(", duration: "));
-      Serial.print(phase_duration);
+      Serial.print(phase_duration_in);
       Serial.println(F(" ms"));
       StaticJsonBuffer<200> jsonBuffer;
-      JsonObject& root = jsonBuffer.createObject();
-      root["Car"] = car_count;
-      root["Times"] = phase_duration;
-      root["time"] = NowString();
+      JsonObject& root_in = jsonBuffer.createObject();
+      root_in["Car_in"] = car_count_in;
+      root_in["duration_time_in"] = phase_duration_in;
+      root_in["time_in"] = NowString();
 
       // append a new value to /logCar
-      String name = Firebase.push("logCar", root);
+      String name = Firebase.push("logCar_in", root_in);
       // handle error
       if (Firebase.failed()) {
         Serial.print("pushing /logs failed:");
         Serial.println(Firebase.error());
         return;
       }
-      Serial.print("pushed: /logCar/");
+      Serial.print("pushed: /logCar_in/");
       Serial.println(name);
       // delay(30000);
     }
   }
 
-  last_phr_state = phr_state;
+  // Record when the phr is pressed.
+  if (last_phr_state_out == HIGH && phr_state_out == LOW) {
+    car_count_out++;
+    last_press_time_out = now_out;
+  }
+
+  // Report when the phr is released.
+  if (last_phr_state_out == LOW && phr_state_out == HIGH) {
+    unsigned long phase_duration_out = now_out - last_press_time_out;
+    if (phase_duration_out < 10) {  // discard bounce
+      car_count_out--;
+    }
+    else {
+      Serial.print(F("pushes: "));
+      Serial.print(car_count_out);
+      Serial.print(F(", duration: "));
+      Serial.print(phase_duration_out);
+      Serial.println(F(" ms"));
+      StaticJsonBuffer<200> jsonBuffer;
+      JsonObject& root_out = jsonBuffer.createObject();
+      root_out["Car_out"] = car_count_out;
+      root_out["duration_time_out"] = phase_duration_out;
+      root_out["time_out"] = NowString();
+
+      // append a new value to /logCar
+      String name = Firebase.push("logCar_out", root_out);
+      // handle error
+      if (Firebase.failed()) {
+        Serial.print("pushing /logs failed:");
+        Serial.println(Firebase.error());
+        return;
+      }
+      Serial.print("pushed: /logCar_out/");
+      Serial.println(name);
+      // delay(30000);
+    }
+  }
+
+  last_phr_state_in = phr_state_in;
+  last_phr_state_out = phr_state_out;
 
 }
 
