@@ -21,8 +21,8 @@ char ntp_server3[20] = "time.uni.net.th";
 int dst = 0;
 
 // Sensor
-unsigned int Car = 0;
-unsigned int Times = 0;
+//unsigned int Car = 0;
+//unsigned int Times = 0;
 
 void setup() {
   Serial.begin(9600);

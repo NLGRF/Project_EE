@@ -25,8 +25,8 @@ int dst = 0;
 const uint8_t phr_sensor_in = 12;
 const uint8_t phr_sensor_out = 13;
 
-// unsigned int Car = 0;
-// unsigned int Times = 0;
+unsigned int Car_in = 0;
+unsigned int Car_out = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -61,6 +61,26 @@ void setup() {
 
   // connect firebase
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+
+  // IN
+  Car_in = Firebase.getInt("/config_in");
+  if (Firebase.failed()) {
+    Serial.print("getCar /logs failed:");
+    Serial.println(Firebase.error());
+    return;
+  }
+  Serial.print("last Car In : ");
+  Serial.println(Car_in);
+
+  // OUT
+  Car_out = Firebase.getInt("/config_out");
+  if (Firebase.failed()) {
+    Serial.print("getCar /logs failed:");
+    Serial.println(Firebase.error());
+    return;
+  }
+  Serial.print("last Car Out: ");
+  Serial.println(Car_out);
 
 }
 
@@ -112,6 +132,18 @@ void loop() {
       Serial.print("pushed: /logCar_in/");
       Serial.println(name);
       // delay(30000);
+
+      JsonObject& objectList_in = StaticJsonBuffer<200>().createObject();
+      objectList_in["Car_in"] = car_count_in;
+
+      Firebase.set("config_in", objectList_in);
+      // handle error
+      if (Firebase.failed()) {
+        Serial.print("setting_in /logs failed:");
+        Serial.println(Firebase.error());
+        return;
+      }
+      Serial.println("setted: /logCar_in/");
     }
   }
 
@@ -149,6 +181,18 @@ void loop() {
       }
       Serial.print("pushed: /logCar_out/");
       Serial.println(name);
+
+      JsonObject& objectList_out = StaticJsonBuffer<200>().createObject();
+      objectList_out["Car_out"] = car_count_out;
+
+      Firebase.set("config_out", objectList_out);
+      // handle error
+      if (Firebase.failed()) {
+        Serial.print("setting_out /logs failed:");
+        Serial.println(Firebase.error());
+        return;
+      }
+      Serial.println("setted: /logCar_out/");
       // delay(30000);
     }
   }
