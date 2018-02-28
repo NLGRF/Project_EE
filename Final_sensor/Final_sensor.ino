@@ -1,9 +1,11 @@
-const uint8_t phr_sensor = 18;
+const uint8_t phr_sensor = 26;
 
 void setup()
 {
-    pinMode(phr_sensor, INPUT_PULLUP);
+    // pinMode(phr_sensor, INPUT_PULLUP); // NPN
+    pinMode(phr_sensor, INPUT); // PNP
     Serial.begin(9600);
+    Serial.println("Start Sensor");
 }
 
 void loop()
