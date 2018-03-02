@@ -1,5 +1,6 @@
 import React from 'react';
-import ia from '../static/img/ice-age.jpg'
+import cin from '../static/img/IN.jpg'
+import cout from '../static/img/OUT.jpg'
 import * as firebase from 'firebase';
 
 class Test extends React.Component {
@@ -96,10 +97,11 @@ constructor() {
            <div className="column">
            
            <center>
-              <img src={ia} width="600" height="450" />
+              <img src={cin} width="600" height="450" />
+              <h1>IN</h1>
            </center>  
 
-           <h1>IN</h1>
+           
             
                 <div className="media-content">
                 
@@ -141,10 +143,11 @@ constructor() {
                 <div className="column">
 
                 <center>
-                   <img src={ia} width="600" height="450" />
+                   <img src={cout} width="600" height="450" />
+                   <h1>OUT</h1>
                 </center>  
-     
-                <h1>OUT</h1>
+            
+                
                  
                      <div className="media-content">
                      

@@ -5,7 +5,8 @@ import {
   HashRouter
 } from "react-router-dom";
 import Test from './Test';
-import Graph from "./Graph";
+import Graphin from "./Graphin";
+import Graphout from "./Graphout";
 import About from "./About";
  
 class Tabs extends Component {
@@ -15,12 +16,14 @@ class Tabs extends Component {
           <div>
             <ul className="header">
               <li><NavLink exact to="/">Home</NavLink></li>
-              <li><NavLink to="/graph">Graph</NavLink></li>
+              <li><NavLink to="/graphin">GraphIN</NavLink></li>
+              <li><NavLink to="/graphout">GraphOUT</NavLink></li>
               <li><NavLink to="/about">About</NavLink></li>
             </ul>
             <div className="content">
             <Route exact path="/" component={Test}/>
-            <Route path="/graph" component={Graph}/>
+            <Route path="/graphin" component={Graphin}/>
+            <Route path="/graphout" component={Graphout}/>
             <Route path="/about" component={About}/>
           </div>
           </div>
