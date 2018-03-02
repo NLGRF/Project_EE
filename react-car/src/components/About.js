@@ -7,6 +7,7 @@ class About extends Component {
         <h2>Project EE</h2>
         <p>
           Car counting with Arduino.
+          Server & Hosting with Firebase.
         </p>
       </div>
     );

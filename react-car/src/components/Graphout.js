@@ -44,7 +44,7 @@ console.log(dataout);
 
   	return (
       
-      <LineChart width={1600} height={800} data={dataout}   
+      <LineChart width={1400} height={650} data={dataout}   
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
        
        <XAxis dataKey="time_out"/>
@@ -55,6 +55,7 @@ console.log(dataout);
        <br />
        <Line type="monotone" dataKey="Car_out" stroke="#8884d8" activeDot={{r: 8}}/>
        <Line type="monotone" dataKey="duration_time_out" stroke="#82ca9d" />
+
       </LineChart>
     );
   }

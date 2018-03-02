@@ -41,9 +41,9 @@ console.log(datain);
 
   	return (
      
-     <LineChart width={1600} height={800} data={datain}   
+     <LineChart width={1400} height={650} data={datain}   
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-       
+
        <XAxis dataKey="time_in"/>
        <YAxis/>
        <CartesianGrid strokeDasharray="3 3"/>
@@ -52,6 +52,7 @@ console.log(datain);
        <br />
        <Line type="monotone" dataKey="Car_in" stroke="#8884d8" activeDot={{r: 8}}/>
        <Line type="monotone" dataKey="duration_time_in" stroke="#82ca9d" />
+
       </LineChart>
     );
   }

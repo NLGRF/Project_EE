@@ -95,12 +95,12 @@ constructor() {
            <div class="media-content">
            
            <div className="column">
-           
+           <div className="ml">
            <center>
               <img src={cin} width="600" height="450" />
               <h1>IN</h1>
            </center>  
-
+          
            
             
                 <div className="media-content">
@@ -136,7 +136,7 @@ constructor() {
                 </div>
                 </div>
                 </div>
-                
+                </div>
 
                 <div class="media-content">
 
